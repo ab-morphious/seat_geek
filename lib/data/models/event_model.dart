@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:seat_geek/domain/entities/Event.dart';
 
-class Event extends Equatable {
-  const Event({
+class EventModel extends Equatable {
+  const EventModel({
     required this.id,
     required this.datetimeLocal,
     required this.shortTitle,
@@ -17,7 +18,7 @@ class Event extends Equatable {
   final String title;
   final String description;
 
-  factory Event.fromJson(Map<String, dynamic> json) => Event(
+  factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
         id: json["id"],
         datetimeLocal: DateTime.parse(json["datetime_local"]),
         shortTitle: json["short_title"],
@@ -37,4 +38,11 @@ class Event extends Equatable {
 
   @override
   List<Object?> get props => [id, shortTitle, url, title, description];
+
+  Event toEntity() => Event(
+      id: id,
+      datetimeLocal: datetimeLocal,
+      shortTitle: shortTitle,
+      url: url, title: title,
+      description: description);
 }
