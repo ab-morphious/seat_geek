@@ -24,7 +24,7 @@ class EventsError extends EventsState {
 
 class EventsData extends EventsState {
   final Events events;
-  EventsData(this.events);
+  const EventsData(this.events);
 
   @override
   List<Object?> get props => [events];

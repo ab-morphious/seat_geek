@@ -6,7 +6,6 @@ import 'package:seat_geek/presentation/pages/listing_page.dart';
 import 'di.dart' as di;
 
 void main() {
-
   di.init();
 
   runApp(MyApp());
@@ -26,27 +25,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Seat Geek',
         theme: ThemeData(),
-        home: const ListingPage(),
-      ),
-    );
-  }
-}
-
-class ListingPage extends StatelessWidget {
-  const ListingPage({this.onPressed});
-  final onPressed;
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        child: Center(
-          child: MaterialButton(
-            onPressed: () {
-              context.read<EventsBloc>().add(OnQueryChanged("Texas Rangers"));
-            },
-            child: Text("Click Me"),
-          ),
-        ),
+        home: ListingPage(),
       ),
     );
   }
