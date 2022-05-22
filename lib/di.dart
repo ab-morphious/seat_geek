@@ -9,9 +9,8 @@ import 'package:http/http.dart' as http;
 final locator = GetIt.instance;
 
 Future<void> init() async{
-  locator.registerSingleton(() => ListingPage());
 
-  locator.registerSingleton(() => GetEvents(locator()));
+  locator.registerLazySingleton(() => GetEvents(locator()));
 
   locator.registerLazySingleton<EventRepository>(
       () => EventRepositoryImpl(remoteDataSource: locator()));
