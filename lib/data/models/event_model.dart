@@ -26,7 +26,8 @@ class EventModel extends Equatable {
     required this.url,
     required this.title,
     required this.description,
-    required this.performer
+    required this.performers,
+    required this.venue,
   });
 
   final int id;
@@ -35,7 +36,8 @@ class EventModel extends Equatable {
   final String url;
   final String title;
   final String description;
-  final Performer performer;
+  final List<Performer> performers;
+  final Venue venue;
 
   factory EventModel.fromJson(Map<String, dynamic> json) => EventModel(
         id: json["id"],
@@ -44,7 +46,8 @@ class EventModel extends Equatable {
         url: json["url"],
         title: json["title"],
         description: json["description"],
-        performer: json["performer"],
+        performers: List<Performer>.from(json["performers"].map((x) => Performer.fromJson(x))),
+        venue: Venue.fromJson(json["venue"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -54,7 +57,8 @@ class EventModel extends Equatable {
         "url": url,
         "title": title,
         "description": description,
-        "performer": performer
+        "performers": List<dynamic>.from(performers.map((x) => x.toJson())),
+        "venue": venue.toJson(),
       };
 
   @override
@@ -81,5 +85,18 @@ class Performer {
 
   Map<String, dynamic> toJson() => {
     "image": image,
+  };
+}
+
+class Venue {
+  Venue({required this.address,});
+  String address;
+
+  factory Venue.fromJson(Map<String, dynamic> json) => Venue(
+    address: json["address"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "address": address,
   };
 }

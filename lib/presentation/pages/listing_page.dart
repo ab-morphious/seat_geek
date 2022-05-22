@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:seat_geek/presentation/bloc/events_state.dart';
+import 'package:seat_geek/presentation/pages/EventDetail.dart';
 
 import '../bloc/events_bloc.dart';
 import '../bloc/events_event.dart';
@@ -13,8 +15,8 @@ class ListingPage extends StatelessWidget {
   TextEditingController? _searchTextEditingController;
   @override
   Widget build(BuildContext context) {
-    //context.read<EventsBloc>().add(OnQueryChanged("Texas Rangers"));
     _searchTextEditingController = TextEditingController();
+
     return Scaffold(
         body: SafeArea(
             child: Column(
@@ -27,7 +29,11 @@ class ListingPage extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: TextField(
-                    decoration: InputDecoration(
+                    controller: _searchTextEditingController,
+                    onChanged: (value) {
+                      context.read<EventsBloc>().add(OnQueryChanged(value));
+                    },
+                    decoration: const InputDecoration(
                       hintStyle: TextStyle(color: Colors.white70),
                       labelStyle: TextStyle(color: Colors.white),
                       iconColor: Colors.white,
@@ -44,7 +50,7 @@ class ListingPage extends StatelessWidget {
               Container(
                 child: MaterialButton(
                     onPressed: () {},
-                    child: Text(
+                    child: const Text(
                       'Cancel',
                       style: TextStyle(color: Colors.white, fontSize: 16.0),
                     )),
@@ -55,17 +61,43 @@ class ListingPage extends StatelessWidget {
         BlocBuilder<EventsBloc, EventsState>(builder: (context, state) {
           if (state is EventsLoading) {
             return Center(child: CircularProgressIndicator());
-          }else if(state is EventsData) {
-            return ListView.builder(
-                itemCount: state.events.events.length,
-                itemBuilder: (context, position) {
-                return ListTile(
-                  leading: Image.network(state.events.events[position].performer.image),
-                  title: Text(state.events.events[position].title.toString()),
-                );
-            });
-            }
-          else return SizedBox();
+          } else if (state is EventsData) {
+            return Expanded(
+              child: ListView.builder(
+                  itemCount: state.events.events.length,
+                  itemBuilder: (context, position) {
+                    return Material(
+                      elevation: 5.0,
+                      shadowColor: Colors.black,
+                      child: ListTile(
+                        isThreeLine: true,
+                        onTap: () => Get.to(EventDetail(
+                            eventModel: state.events.events[position])),
+                        dense: false,
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(state
+                              .events.events[position].performers[0].image),
+                        ),
+                        title: Text(
+                          state.events.events[position].title.toString(),
+                          style: TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(state.events.events[position].venue.address),
+                            Text(state.events.events[position].datetimeLocal
+                                .toLocal()
+                                .toString()),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            );
+          } else
+            return SizedBox();
         })
       ],
     )));
