@@ -18,6 +18,7 @@ class RemoteDataSourceImpl implements RemoteDataSource {
   Future<EventModel> getEvents(String query) async {
     final response = await apiClient.get(Uri.parse(Urls.eventsListUrl(query)));
     if (response.statusCode == 200) {
+      print(response.body.toString());
       return EventModel.fromJson(jsonDecode(response.body));
     } else {
       throw ServerException();

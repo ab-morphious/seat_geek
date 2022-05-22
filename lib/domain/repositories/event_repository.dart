@@ -4,6 +4,6 @@ import '../../data/failure.dart';
 import '../../data/models/event_model.dart';
 import '../entities/Event.dart';
 
-abstract class EventRepository{
+abstract class EventRepository {
   Future<Either<Failure, Event>> getEvents(String query);
 }
