@@ -77,7 +77,7 @@ class Performer {
   Performer({
     required this.image,
   });
-  String image;
+  String? image;
 
   factory Performer.fromJson(Map<String, dynamic> json) => Performer(
     image: json["image"],

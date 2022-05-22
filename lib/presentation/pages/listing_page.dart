@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:seat_geek/presentation/bloc/events_state.dart';
-import 'package:seat_geek/presentation/pages/EventDetail.dart';
+import 'package:seat_geek/presentation/pages/event_detail.dart';
 
 import '../bloc/events_bloc.dart';
 import '../bloc/events_event.dart';
@@ -60,39 +61,46 @@ class ListingPage extends StatelessWidget {
         ),
         BlocBuilder<EventsBloc, EventsState>(builder: (context, state) {
           if (state is EventsLoading) {
-            return Center(child: CircularProgressIndicator());
+            return Center(
+                child: LoadingAnimationWidget.horizontalRotatingDots(
+                    color: Colors.black, size: 100));
           } else if (state is EventsData) {
             return Expanded(
               child: ListView.builder(
                   itemCount: state.events.events.length,
                   itemBuilder: (context, position) {
-                    return Material(
-                      elevation: 5.0,
-                      shadowColor: Colors.black,
-                      child: ListTile(
-                        isThreeLine: true,
-                        onTap: () => Get.to(EventDetail(
-                            eventModel: state.events.events[position])),
-                        dense: false,
-                        leading: ClipRRect(
-                          borderRadius: BorderRadius.circular(8.0),
-                          child: Image.network(state
-                              .events.events[position].performers[0].image),
+                    return Column(
+                      children: [
+                        ListTile(
+                          isThreeLine: true,
+                          onTap: () => Get.to(EventDetail(
+                              eventModel: state.events.events[position])),
+                          dense: false,
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: Image.network(state.events.events[position]
+                                    .performers[0].image ??
+          'https://montessoriinthewoods.org/wp-content/uploads/2018/02/image-placeholder-500x500.jpg'                         ),
+                          ),
+                          title: Text(
+                            state.events.events[position].title.toString(),
+                            style: TextStyle(fontWeight: FontWeight.w800),
+                          ),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(state.events.events[position].venue.address),
+                              Text(state.events.events[position].datetimeLocal
+                                  .toLocal()
+                                  .toString()),
+                            ],
+                          ),
                         ),
-                        title: Text(
-                          state.events.events[position].title.toString(),
-                          style: TextStyle(fontWeight: FontWeight.w800),
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(state.events.events[position].venue.address),
-                            Text(state.events.events[position].datetimeLocal
-                                .toLocal()
-                                .toString()),
-                          ],
-                        ),
-                      ),
+                        SizedBox(
+                          height: 1.5,
+                          child: Container(color: Colors.black12),
+                        )
+                      ],
                     );
                   }),
             );
