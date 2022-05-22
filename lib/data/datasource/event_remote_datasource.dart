@@ -11,12 +11,12 @@ abstract class RemoteDataSource {
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
-  RemoteDataSourceImpl({required this.apiClient});
-  final http.Client apiClient;
+  RemoteDataSourceImpl();
 
   @override
   Future<EventModel> getEvents(String query) async {
-    final response = await apiClient.get(Uri.parse(Urls.eventsListUrl(query)));
+    print("HEREEEEEEEEEEEEEEEE");
+    final response = await http.get(Uri.parse(Urls.eventsListUrl(query)));
     if (response.statusCode == 200) {
       print(response.body.toString());
       return EventModel.fromJson(jsonDecode(response.body));

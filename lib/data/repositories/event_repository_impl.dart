@@ -15,6 +15,7 @@ class EventRepositoryImpl implements EventRepository {
 
   @override
   Future<Either<Failure, Event>> getEvents(String query) async {
+    print("HEREEEEEEEEEEEEEEEE");
     try {
       final result = await remoteDataSource.getEvents(query);
       return Right(result.toEntity());

@@ -1,22 +1,29 @@
 import 'package:get_it/get_it.dart';
 import 'package:seat_geek/data/datasource/event_remote_datasource.dart';
 import 'package:seat_geek/data/repositories/event_repository_impl.dart';
-import 'package:seat_geek/domain/repositories/event_repository.dart';
 import 'package:seat_geek/domain/usecases/get_events.dart';
-import 'package:seat_geek/presentation/pages/listing_page.dart';
+import 'package:seat_geek/presentation/bloc/events_bloc.dart';
 import 'package:http/http.dart' as http;
+
+import 'domain/repositories/event_repository.dart';
 
 final locator = GetIt.instance;
 
-Future<void> init() async{
+void init(){
 
-  locator.registerLazySingleton(() => GetEvents(locator()));
+  // bloc
+  locator.registerFactory<EventsBloc>(() => EventsBloc(locator()));
 
+  //usecase
+  locator.registerLazySingleton<GetEvents>(() => GetEvents(locator()));
+
+  //repository
   locator.registerLazySingleton<EventRepository>(
       () => EventRepositoryImpl(remoteDataSource: locator()));
 
+  //data source
   locator.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(apiClient: locator()));
+      () => RemoteDataSourceImpl());
 
   locator.registerLazySingleton(() => http.Client);
 }
