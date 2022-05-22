@@ -42,7 +42,7 @@ class ListingPage extends StatelessWidget {
         child: Center(
           child: MaterialButton(
             onPressed: () {
-              di.locator<EventsBloc>().add(OnQueryChanged("Texas Rangers"));
+              context.read<EventsBloc>().add(OnQueryChanged("Texas Rangers"));
             },
             child: Text("Click Me"),
           ),

@@ -1,6 +1,23 @@
 import 'package:equatable/equatable.dart';
 import 'package:seat_geek/domain/entities/Event.dart';
 
+class Events {
+  Events({
+    required this.events,
+  });
+
+  List<EventModel> events;
+
+  factory Events.fromJson(Map<String, dynamic> json) => Events(
+        events: List<EventModel>.from(
+            json["events"].map((x) => EventModel.fromJson(x))),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "events": List<dynamic>.from(events.map((x) => x.toJson())),
+      };
+}
+
 class EventModel extends Equatable {
   const EventModel({
     required this.id,
@@ -43,6 +60,7 @@ class EventModel extends Equatable {
       id: id,
       datetimeLocal: datetimeLocal,
       shortTitle: shortTitle,
-      url: url, title: title,
+      url: url,
+      title: title,
       description: description);
 }

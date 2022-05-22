@@ -7,19 +7,19 @@ import '../constants.dart';
 import 'package:http/http.dart' as http;
 
 abstract class RemoteDataSource {
-  Future<EventModel> getEvents(String query);
+  Future<Events> getEvents(String query);
 }
 
 class RemoteDataSourceImpl implements RemoteDataSource {
   RemoteDataSourceImpl();
 
   @override
-  Future<EventModel> getEvents(String query) async {
+  Future<Events> getEvents(String query) async {
     print("HEREEEEEEEEEEEEEEEE");
     final response = await http.get(Uri.parse(Urls.eventsListUrl(query)));
     if (response.statusCode == 200) {
       print(response.body.toString());
-      return EventModel.fromJson(jsonDecode(response.body));
+      return Events.fromJson(jsonDecode(response.body));
     } else {
       throw ServerException();
     }

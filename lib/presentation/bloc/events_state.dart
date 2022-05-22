@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
+import 'package:seat_geek/data/models/event_model.dart';
 
-import '../../domain/entities/Event.dart';
 
 abstract class EventsState extends Equatable {
   const EventsState();
@@ -23,7 +23,7 @@ class EventsError extends EventsState {
 }
 
 class EventsData extends EventsState {
-  final Event events;
+  final Events events;
   EventsData(this.events);
 
   @override

@@ -14,11 +14,11 @@ class EventRepositoryImpl implements EventRepository {
   final RemoteDataSource remoteDataSource;
 
   @override
-  Future<Either<Failure, Event>> getEvents(String query) async {
+  Future<Either<Failure, Events>> getEvents(String query) async {
     print("HEREEEEEEEEEEEEEEEE");
     try {
       final result = await remoteDataSource.getEvents(query);
-      return Right(result.toEntity());
+      return Right(result);
     } on SocketException {
       return const Left(ConnectionFailure('connection failure'));
     } on ServerException {
