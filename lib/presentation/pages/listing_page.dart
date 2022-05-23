@@ -30,39 +30,38 @@ class ListingPage extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                     child: Container(
-                       decoration: BoxDecoration(
-                         borderRadius: BorderRadius.circular(5.0),
-                         color: Colors.white.withOpacity(0.1)
-                       ),
-                       child: ListTile(
-                        leading: const Icon(
-                          Icons.search,
-                          color: Colors.white,
-                          size: 28,
-                        ),
-                        title: TextField(
-                          controller: _searchTextEditingController,
-                          onChanged: (value){
-                            int len = _searchTextEditingController?.text
-                                .length ?? 0;
-                              context.read<EventsBloc>().add(OnQueryChanged(value));
-                          },
-                          decoration: const InputDecoration(
-                            hintText: 'Search Events...',
-                            hintStyle: TextStyle(
-                              color: Colors.white,
-                              fontSize: 18,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            border: InputBorder.none,
-                          ),
-                          style: const TextStyle(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.white.withOpacity(0.1)),
+                    child: ListTile(
+                      leading: const Icon(
+                        Icons.search,
+                        color: Colors.white,
+                        size: 28,
+                      ),
+                      title: TextField(
+                        controller: _searchTextEditingController,
+                        onChanged: (value) {
+                          int len =
+                              _searchTextEditingController?.text.length ?? 0;
+                          context.read<EventsBloc>().add(OnQueryChanged(value));
+                        },
+                        decoration: const InputDecoration(
+                          hintText: 'Search Events...',
+                          hintStyle: TextStyle(
                             color: Colors.white,
+                            fontSize: 18,
+                            fontStyle: FontStyle.italic,
                           ),
+                          border: InputBorder.none,
                         ),
+                        style: const TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
                     ),
-                     ),
+                  ),
                 ),
               ),
               Container(
@@ -88,39 +87,51 @@ class ListingPage extends StatelessWidget {
               child: ListView.builder(
                   itemCount: state.events.events.length,
                   itemBuilder: (context, position) {
-                    return Column(
-                      children: [
-                        ListTile(
-                          isThreeLine: true,
-                          onTap: () => Get.to(EventDetail(
-                              eventModel: state.events.events[position])),
-                          dense: false,
-                          leading: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(state.events.events[position]
-                                    .performers[0].image ??
-                                'https://montessoriinthewoods.org/wp-content/uploads/2018/02/image-placeholder-500x500.jpg'),
-                          ),
-                          title: Text(
-                            state.events.events[position].title.toString(),
-                            style: TextStyle(fontWeight: FontWeight.w800),
-                          ),
-                          subtitle: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                    return state.events.events.isEmpty
+                        ? Container(
+                            margin: EdgeInsets.only(top: 80.0),
+                            child: const Center(
+                                child: Text('Oops!, No '
+                                    'Result Found.')))
+                        : Column(
                             children: [
-                              Text(state.events.events[position].venue.address),
-                              Text(state.events.events[position].datetimeLocal
-                                  .toLocal()
-                                  .toString()),
+                              ListTile(
+                                isThreeLine: true,
+                                onTap: () => Get.to(EventDetail(
+                                    eventModel: state.events.events[position])),
+                                dense: false,
+                                leading: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(state
+                                          .events
+                                          .events[position]
+                                          .performers[0]
+                                          .image ??
+                                      'https://montessoriinthewoods.org/wp-content/uploads/2018/02/image-placeholder-500x500.jpg'),
+                                ),
+                                title: Text(
+                                  state.events.events[position].title
+                                      .toString(),
+                                  style: TextStyle(fontWeight: FontWeight.w800),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(state
+                                        .events.events[position].venue.address),
+                                    Text(state
+                                        .events.events[position].datetimeLocal
+                                        .toLocal()
+                                        .toString()),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 1.5,
+                                child: Container(color: Colors.black12),
+                              )
                             ],
-                          ),
-                        ),
-                        SizedBox(
-                          height: 1.5,
-                          child: Container(color: Colors.black12),
-                        )
-                      ],
-                    );
+                          );
                   }),
             );
           } else {
@@ -129,14 +140,19 @@ class ListingPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 80.0),
-                    child: Text('Seat Geek', style: TextStyle
-                      (fontSize: 26.0, fontWeight: FontWeight.bold),),
+                    margin: const EdgeInsets.only(top: 80.0),
+                    child: const Text(
+                      'Seat Geek',
+                      style: TextStyle(
+                          fontSize: 26.0, fontWeight: FontWeight.bold),
+                    ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 15.0),
-                    child: Text('Find and Discover events', style: TextStyle
-                      (fontSize: 16.0),),
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: const Text(
+                      'Find and Discover events',
+                      style: TextStyle(fontSize: 16.0),
+                    ),
                   ),
                 ],
               ),

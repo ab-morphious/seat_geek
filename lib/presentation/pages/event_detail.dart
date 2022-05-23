@@ -30,8 +30,10 @@ class EventDetail extends StatelessWidget {
                       GestureDetector(
                           child: Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Icon(Platform.isAndroid ? Icons
-                                .arrow_back : Icons.arrow_back_ios,
+                            child: Icon(
+                                Platform.isAndroid
+                                    ? Icons.arrow_back
+                                    : Icons.arrow_back_ios,
                                 color: Colors.blueAccent),
                           ),
                           onTap: () => Get.back()),
