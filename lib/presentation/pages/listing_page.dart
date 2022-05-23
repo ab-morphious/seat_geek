@@ -30,24 +30,6 @@ class ListingPage extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                 /* child: TextFormField(
-                    style: TextStyle(color: Colors.white),
-                    controller: _searchTextEditingController,
-                    onChanged: (value) {
-                      context.read<EventsBloc>().add(OnQueryChanged(value));
-                    },
-                    decoration: const InputDecoration(
-                      hintStyle: TextStyle(color: Colors.white70),
-                      labelStyle: TextStyle(color: Colors.white),
-                      floatingLabelStyle: TextStyle(color: Colors.white70),
-                      iconColor: Colors.white,
-                      icon: Icon(Icons.search, color: Colors.white),
-                      border: OutlineInputBorder(),
-                      enabledBorder: InputBorder.none,
-                      focusedBorder: InputBorder.none,
-                      hintText: 'Search events',
-                    ),
-                  ),*/
                      child: Container(
                        decoration: BoxDecoration(
                          borderRadius: BorderRadius.circular(5.0),
@@ -62,10 +44,12 @@ class ListingPage extends StatelessWidget {
                         title: TextField(
                           controller: _searchTextEditingController,
                           onChanged: (value){
-                            context.read<EventsBloc>().add(OnQueryChanged(value));
+                            int len = _searchTextEditingController?.text
+                                .length ?? 0;
+                              context.read<EventsBloc>().add(OnQueryChanged(value));
                           },
                           decoration: const InputDecoration(
-                            hintText: 'type in journal name...',
+                            hintText: 'Search Events...',
                             hintStyle: TextStyle(
                               color: Colors.white,
                               fontSize: 18,
@@ -140,7 +124,23 @@ class ListingPage extends StatelessWidget {
                   }),
             );
           } else {
-            return SizedBox();
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 80.0),
+                    child: Text('Seat Geek', style: TextStyle
+                      (fontSize: 26.0, fontWeight: FontWeight.bold),),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(top: 15.0),
+                    child: Text('Find and Discover events', style: TextStyle
+                      (fontSize: 16.0),),
+                  ),
+                ],
+              ),
+            );
           }
         })
       ],
