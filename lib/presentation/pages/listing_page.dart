@@ -6,6 +6,7 @@ import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:seat_geek/presentation/bloc/events_state.dart';
 import 'package:seat_geek/presentation/pages/event_detail.dart';
 
+import '../../utils.dart';
 import '../bloc/events_bloc.dart';
 import '../bloc/events_event.dart';
 
@@ -23,13 +24,14 @@ class ListingPage extends StatelessWidget {
             child: Column(
       children: [
         Container(
-          color: Colors.indigo,
+          color: ColorConstants.kTopColor,
           child: Row(
             children: [
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  child: TextField(
+                 /* child: TextFormField(
+                    style: TextStyle(color: Colors.white),
                     controller: _searchTextEditingController,
                     onChanged: (value) {
                       context.read<EventsBloc>().add(OnQueryChanged(value));
@@ -37,20 +39,53 @@ class ListingPage extends StatelessWidget {
                     decoration: const InputDecoration(
                       hintStyle: TextStyle(color: Colors.white70),
                       labelStyle: TextStyle(color: Colors.white),
+                      floatingLabelStyle: TextStyle(color: Colors.white70),
                       iconColor: Colors.white,
                       icon: Icon(Icons.search, color: Colors.white),
                       border: OutlineInputBorder(),
                       enabledBorder: InputBorder.none,
                       focusedBorder: InputBorder.none,
-                      fillColor: Colors.indigo,
                       hintText: 'Search events',
                     ),
-                  ),
+                  ),*/
+                     child: Container(
+                       decoration: BoxDecoration(
+                         borderRadius: BorderRadius.circular(5.0),
+                         color: Colors.white.withOpacity(0.1)
+                       ),
+                       child: ListTile(
+                        leading: const Icon(
+                          Icons.search,
+                          color: Colors.white,
+                          size: 28,
+                        ),
+                        title: TextField(
+                          controller: _searchTextEditingController,
+                          onChanged: (value){
+                            context.read<EventsBloc>().add(OnQueryChanged(value));
+                          },
+                          decoration: const InputDecoration(
+                            hintText: 'type in journal name...',
+                            hintStyle: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                          style: const TextStyle(
+                            color: Colors.white,
+                          ),
+                        ),
+                    ),
+                     ),
                 ),
               ),
               Container(
                 child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _searchTextEditingController?.clear();
+                    },
                     child: const Text(
                       'Cancel',
                       style: TextStyle(color: Colors.white, fontSize: 16.0),
@@ -63,7 +98,7 @@ class ListingPage extends StatelessWidget {
           if (state is EventsLoading) {
             return Center(
                 child: LoadingAnimationWidget.horizontalRotatingDots(
-                    color: Colors.black, size: 100));
+                    color: ColorConstants.kTopColor, size: 70));
           } else if (state is EventsData) {
             return Expanded(
               child: ListView.builder(
@@ -80,7 +115,7 @@ class ListingPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(8.0),
                             child: Image.network(state.events.events[position]
                                     .performers[0].image ??
-          'https://montessoriinthewoods.org/wp-content/uploads/2018/02/image-placeholder-500x500.jpg'                         ),
+                                'https://montessoriinthewoods.org/wp-content/uploads/2018/02/image-placeholder-500x500.jpg'),
                           ),
                           title: Text(
                             state.events.events[position].title.toString(),
@@ -104,8 +139,9 @@ class ListingPage extends StatelessWidget {
                     );
                   }),
             );
-          } else
+          } else {
             return SizedBox();
+          }
         })
       ],
     )));

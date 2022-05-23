@@ -15,10 +15,8 @@ class RemoteDataSourceImpl implements RemoteDataSource {
 
   @override
   Future<Events> getEvents(String query) async {
-    print("HEREEEEEEEEEEEEEEEE");
     final response = await http.get(Uri.parse(Urls.eventsListUrl(query)));
     if (response.statusCode == 200) {
-      print(response.body.toString());
       return Events.fromJson(jsonDecode(response.body));
     } else {
       throw ServerException();
