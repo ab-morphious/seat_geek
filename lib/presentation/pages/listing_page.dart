@@ -87,12 +87,10 @@ class ListingPage extends StatelessWidget {
               child: ListView.builder(
                   itemCount: state.events.events.length,
                   itemBuilder: (context, position) {
-                    return state.events.events.isEmpty
-                        ? Container(
-                            margin: EdgeInsets.only(top: 80.0),
-                            child: const Center(
-                                child: Text('Oops!, No '
-                                    'Result Found.')))
+                    return state.events.events.length == 0
+                        ? const Center(
+                            child: Text('Oops!, No '
+                                'Result Found.'))
                         : Column(
                             children: [
                               ListTile(
