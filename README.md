@@ -1,6 +1,6 @@
 # seat_geek
 
-Flutter project to find and discover events with Clean Architecture and Bloc.
+Flutter project to find and discover events with Clean Architecture and Bloc from SeatGeek API.
 
 The project is developed for both Android and iOS with
 
