@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:seat_geek/data/models/event_model.dart';
 
+//TODO: ui needs refactoring
 class EventDetail extends StatelessWidget {
   EventDetail({required this.eventModel});
   final EventModel eventModel;
