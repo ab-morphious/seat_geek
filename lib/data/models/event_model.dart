@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:seat_geek/domain/entities/Event.dart';
 
+//Event Model Class
 class Events {
   Events({
     required this.events,
