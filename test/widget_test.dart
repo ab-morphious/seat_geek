@@ -10,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 
 import 'package:seat_geek/main.dart';
 
+//Testing in flutter is a must try.
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
 
