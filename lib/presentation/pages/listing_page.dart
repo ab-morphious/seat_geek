@@ -43,9 +43,7 @@ class ListingPage extends StatelessWidget {
                       title: TextField(
                         controller: _searchTextEditingController,
                         onChanged: (value) {
-                          int len =
-                              _searchTextEditingController?.text.length ?? 0;
-                          context.read<EventsBloc>().add(OnQueryChanged(value));
+                          performSearch(context, value);
                         },
                         decoration: const InputDecoration(
                           hintText: 'Search Events...',
@@ -110,7 +108,7 @@ class ListingPage extends StatelessWidget {
                                 title: Text(
                                   state.events.events[position].title
                                       .toString(),
-                                  style: TextStyle(fontWeight: FontWeight.w800),
+                                  style: const TextStyle(fontWeight: FontWeight.w800),
                                 ),
                                 subtitle: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -159,5 +157,9 @@ class ListingPage extends StatelessWidget {
         })
       ],
     )));
+  }
+  void performSearch(BuildContext context, String value) {
+    final weatherBloc = BlocProvider.of<EventsBloc>(context);
+    weatherBloc.add(OnQueryChanged(value));
   }
 }
