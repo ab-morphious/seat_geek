@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:seat_geek/data/models/event_model.dart';
 
 class EventDetail extends StatelessWidget {
-  EventDetail({required this.eventModel});
+  const EventDetail({required this.eventModel});
   final EventModel eventModel;
 
   @override
@@ -38,7 +38,7 @@ class EventDetail extends StatelessWidget {
                           ),
                           onTap: () => Get.back()),
                       const SizedBox(width: 15.0),
-                      Container(
+                      SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: Text(
                           eventModel.title,
