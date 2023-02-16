@@ -1,4 +1,4 @@
-# seat_geek (clean architecture, bloc, get_it)
+# SEAT GEEK (clean architecture, bloc, get_it)
 
 Flutter project to find and discover events with Clean Architecture and Bloc from SeatGeek API.
 
