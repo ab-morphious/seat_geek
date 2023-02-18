@@ -9,6 +9,8 @@ The project is developed for both Android and iOS with
 * get_it for dependency injection
 * Additionally, RxDdart and loading_animation_widget third party packages were used
 
+[INSERT SCREENSHOTS HERE]
+
 This is a Flutter project based on SeatGeek API which is publicly available. Details can be found at
 http://platform.seatgeek.com/
 
