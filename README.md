@@ -11,6 +11,8 @@ The project is developed for both Android and iOS with
 
 [INSERT SCREENSHOTS HERE]
 
+[INSERT SCREEN RECORDS HERE]
+
 This is a Flutter project based on SeatGeek API which is publicly available. Details can be found at
 http://platform.seatgeek.com/
 
