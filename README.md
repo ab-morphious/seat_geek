@@ -7,7 +7,8 @@ The project is developed for both Android and iOS with
 * Clean Architecture (domain layer, data layer, presentation layer)
 * BLoC for State Management
 * get_it package for dependency injection
-* Additionally, RxDdart and loading_animation_widget third party packages were used
+* RxDart for reactive programming 
+* loading_animation_widget package for loading indicator
 
 [INSERT SCREENSHOTS HERE]
 
