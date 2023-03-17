@@ -4,7 +4,7 @@ Flutter project to find and discover events built with Clean Architecture + BLoC
 
 The project is developed for both Android and iOS with
 
-* Clean Architecture (domain layer, data layer, presentation layer)
+* Clean Architecture
 * BLoC for State Management
 * get_it package for dependency injection
 * RxDart for reactive programming 
